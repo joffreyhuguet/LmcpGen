@@ -454,8 +454,8 @@ package body AVTAS.LMCP.ByteBuffers is
    begin
       Retrieve_Int16 (Int16 (Length), This.Content, Start => This.Position);
       This.Position := This.Position + 2;
-      if Length > This.Length then
-         Length := This.Length;
+      if UInt32 (Length) > (This.Length - This.Position) then
+	 Length := UInt32 (This.Length - This.Position);
       end if;
       if Length = 0 then
          Last := Value'First - 1;
@@ -481,8 +481,8 @@ package body AVTAS.LMCP.ByteBuffers is
    begin
       Retrieve_UInt16 (Length, This.Content, Start => This.Position);
       This.Position := This.Position + 2;
-      if Length > UInt16 (This.Length) then
-         Length := UInt16 (This.Length);
+      if UInt32 (Length) > (This.Length - This.Position) then
+	 Length := UInt16 (This.Length - This.Position);
       end if;
       if Length = 0 then
          Value := Null_Unbounded_String;
